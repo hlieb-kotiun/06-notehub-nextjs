@@ -1,6 +1,6 @@
 "use client";
 
-import { ErrorMessage, Field, Form, Formik, type FormikHelpers } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import css from "./NoteForm.module.css";
 import * as Yup from "yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -56,14 +56,14 @@ const NoteForm = ({ onClose }: NoteFormProps) => {
 
   const handleSubmit = (
     values: FormValues,
-    helper: FormikHelpers<FormValues>,
+    // helper: FormikHelpers<FormValues>,
   ) => {
     mutate({
       title: values.title,
       content: values.content,
       tag: values.tag,
     });
-    helper.resetForm();
+    // helper.resetForm();
   };
 
   return (
@@ -76,7 +76,9 @@ const NoteForm = ({ onClose }: NoteFormProps) => {
         <div className={css.formGroup}>
           <label htmlFor="title">Title</label>
           <Field id="title" type="text" name="title" className={css.input} />
-          <ErrorMessage name="title" className={css.error} />
+          <ErrorMessage name="title" className={css.error}>
+            {(error) => <div>{error}</div>}
+          </ErrorMessage>
         </div>
 
         <div className={css.formGroup}>

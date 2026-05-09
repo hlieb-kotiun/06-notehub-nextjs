@@ -17,6 +17,7 @@ const NoteDetailsClient = () => {
     queryFn: () => {
       return fetchNoteById(id as string);
     },
+    refetchOnMount: false,
     placeholderData: keepPreviousData,
   });
 
@@ -33,7 +34,7 @@ const NoteDetailsClient = () => {
           </div>
           <p className={css.tag}>{note.tag}</p>
           <p className={css.content}>{note.content}</p>
-          <p className={css.date}>{note.content}</p>
+          <p className={css.date}>{note.createdAt}</p>
         </div>
       )}
     </div>
