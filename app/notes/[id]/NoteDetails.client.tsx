@@ -6,16 +6,16 @@ import { useParams } from "next/navigation";
 
 const NoteDetailsClient = () => {
   console.log(useParams());
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   const {
     data: note,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["notes", id],
+    queryKey: ["note", id],
     queryFn: () => {
-      return fetchNoteById(id as string);
+      return fetchNoteById(id);
     },
     refetchOnMount: false,
     placeholderData: keepPreviousData,
@@ -30,7 +30,7 @@ const NoteDetailsClient = () => {
       {note && (
         <div className={css.item}>
           <div className={css.header}>
-            <h2>Note title</h2>
+            <h2>{note.title}</h2>
           </div>
           <p className={css.tag}>{note.tag}</p>
           <p className={css.content}>{note.content}</p>
